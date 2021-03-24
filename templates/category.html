@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Category{% endblock %}
+
+{% block body %} 
+
+<div class="row">
+{% for x in data['data'] %}
+
+    <div class="col-sm-6">
+      <div class="card"  style="background-color: transparent; color: white; border-color: transparent;">
+        <div class="card-body">
+          <h5 class="card-title">{{x['attributes']['title']}}</h5>
+          <p class="card-text">Count : {{x['attributes']['totalMediaCount']}}</p>
+          <a href="{{url_for('categorySearch', ids=x['id'],page='0')}}" class="btn btn-primary">Visit</a>
+        </div>
+      </div>
+    </div>
+
+{% endfor %}
+</div>
+
+    <nav aria-label="Page navigation example" style="margin-top: 5px;">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="{{url_for('category',offset=0)}}" aria-label="Next" style="background-color: transparent; color: white; border-color: transparent;">
+                  <span aria-hidden="true">First</span>
+                </a>
+              </li>
+          <li class="page-item">
+            <a class="page-link" href="{% if offset > 10 %}{{url_for('category',offset=offset-10)}}{% else %}{{url_for('category',offset=0)}}{% endif %}" aria-label="Previous" style="background-color: transparent; color: white; border-color: transparent;">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item">&nbsp;</li>
+          <li class="page-item">&nbsp;</li>
+          <li class="page-item">&nbsp;</li>
+          <li class="page-item">&nbsp;</li>
+          <li class="page-item">
+            <a class="page-link" href="{{url_for('category',offset=offset+10)}}" aria-label="Next" style="background-color: transparent; color: white; border-color: transparent;">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="{{url_for('category',offset=data['meta']['count']-10)}}" aria-label="Next" style="background-color: transparent; color: white; border-color: transparent;">
+              <span aria-hidden="true">Last</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+{% endblock %}

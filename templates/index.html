@@ -1,0 +1,375 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block body %} 
+
+<div class="row">
+    <div class="col-8">
+
+        <h1 style="text-align: center;">Top Rank</h1>
+
+        <div id="carouselTop" class="carousel slide anime-title" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselTop" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+              {% for x in top['data'] %}
+              <button type="button" data-bs-target="#carouselTop" data-bs-slide-to="{{ loop.index }}" aria-label="Slide {{ loop.index + 1 }}"></button>
+              {% endfor %}
+
+            </div>
+            {% for x in top['data'] %}
+            <div class="carousel-{% if loop.index == 1 %}inner{% else %}item{% endif %}">
+                {% if loop.index == 1 %}<div class="carousel-item active">{% endif %}
+                    <a href="{{url_for('anime',anime=x['id'])}}"><img src="{% if x['attributes']['coverImage']['small'] != null %}{{x['attributes']['coverImage']['small']}}{% else %}{{url_for('static', filename='img/nobanner.jpg')}}{% endif %}" class="d-block w-100" alt="No Banner">
+                <div class="carousel-caption d-none d-md-block">
+                  <h1>Rank {{loop.index}}</h1>
+                  <p style="font-size: large;">{% if x['attributes']['titles']['en_jp'] == "" %}{{ x['attributes']['titles']['jp_jp'] }}{% else %}{{ x['attributes']['titles']['en_jp'] }}{% endif %}</p>
+                </div>
+               </a>
+              </div>
+              {% endfor %}
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselTop"  data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselTop"  data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+        <h1 style="text-align: center;">Adventure</h1>
+
+        <div id="carouselAdventure" class="carousel slide anime-title" data-interval="false">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselAdventure" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+              {% for x in adventure['data'] %}
+              <button type="button" data-bs-target="#carouselAdventure" data-bs-slide-to="{{ loop.index }}" aria-label="Slide {{ loop.index + 1 }}"></button>
+              {% endfor %}
+
+            </div>
+            {% for x in adventure['data'] %}
+            <div class="carousel-{% if loop.index == 1 %}inner{% else %}item{% endif %}">
+                {% if loop.index == 1 %}<div class="carousel-item active">{% endif %}
+                <a href="{{url_for('anime',anime=x['id'])}}"><img src="{% if x['attributes']['coverImage']['small'] != null %}{{x['attributes']['coverImage']['small']}}{% else %}{{url_for('static', filename='img/nobanner.jpg')}}{% endif %}" class="d-block w-100" alt="No Banner">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>{% if x['attributes']['titles']['en_jp'] == "" %}{{ x['attributes']['titles']['jp_jp'] }}{% else %}{{ x['attributes']['titles']['en_jp'] }}{% endif %}</h1>
+                </div>
+            </a>
+              </div>
+              {% endfor %}
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselAdventure"  data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselAdventure"  data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+          <h1 style="text-align: center;">Magic</h1>
+
+          <div id="carouselMagic" class="carousel slide anime-title" data-interval="false">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselMagic" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+  
+                {% for x in magic['data'] %}
+                <button type="button" data-bs-target="#carouselMagic" data-bs-slide-to="{{ loop.index }}" aria-label="Slide {{ loop.index + 1 }}"></button>
+                {% endfor %}
+  
+              </div>
+              {% for x in magic['data'] %}
+              <div class="carousel-{% if loop.index == 1 %}inner{% else %}item{% endif %}">
+                  {% if loop.index == 1 %}<div class="carousel-item active">{% endif %}
+                      <a href="{{url_for('anime',anime=x['id'])}}"><img src="{% if x['attributes']['coverImage']['small'] != null %}{{x['attributes']['coverImage']['small']}}{% else %}{{url_for('static', filename='img/nobanner.jpg')}}{% endif %}" class="d-block w-100" alt="No Banner">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h1>{% if x['attributes']['titles']['en_jp'] == "" %}{{ x['attributes']['titles']['jp_jp'] }}{% else %}{{ x['attributes']['titles']['en_jp'] }}{% endif %}</h1>
+                  </div>
+                 </a>
+                </div>
+                {% endfor %}
+  
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselMagic"  data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselMagic"  data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+
+            <h1 style="text-align: center;">Fantasy</h1>
+
+            <div id="carouselFantasy" class="carousel slide anime-title" data-interval="false">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselFantasy" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    
+                  {% for x in fantasy['data'] %}
+                  <button type="button" data-bs-target="#carouselFantasy" data-bs-slide-to="{{ loop.index }}" aria-label="Slide {{ loop.index + 1 }}"></button>
+                  {% endfor %}
+    
+                </div>
+                {% for x in fantasy['data'] %}
+                <div class="carousel-{% if loop.index == 1 %}inner{% else %}item{% endif %}">
+                    {% if loop.index == 1 %}<div class="carousel-item active">{% endif %}
+                        <a href="{{url_for('anime',anime=x['id'])}}"><img src="{% if x['attributes']['coverImage']['small'] != null %}{{x['attributes']['coverImage']['small']}}{% else %}{{url_for('static', filename='img/nobanner.jpg')}}{% endif %}" class="d-block w-100" alt="No Banner">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>{% if x['attributes']['titles']['en_jp'] == "" %}{{ x['attributes']['titles']['jp_jp'] }}{% else %}{{ x['attributes']['titles']['en_jp'] }}{% endif %}</h1>
+                    </div>
+                   </a>
+                  </div>
+                  {% endfor %}
+    
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselFantasy"  data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselFantasy"  data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+
+              <h1 style="text-align: center;">Combat</h1>
+
+              <div id="carouselCombat" class="carousel slide anime-title" data-interval="false">
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselCombat" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      
+                    {% for x in combat['data'] %}
+                    <button type="button" data-bs-target="#carouselCombat" data-bs-slide-to="{{ loop.index }}" aria-label="Slide {{ loop.index + 1 }}"></button>
+                    {% endfor %}
+      
+                  </div>
+                  {% for x in combat['data'] %}
+                  <div class="carousel-{% if loop.index == 1 %}inner{% else %}item{% endif %}">
+                      {% if loop.index == 1 %}<div class="carousel-item active">{% endif %}
+                          <a href="{{url_for('anime',anime=x['id'])}}"><img src="{% if x['attributes']['coverImage']['small'] != null %}{{x['attributes']['coverImage']['small']}}{% else %}{{url_for('static', filename='img/nobanner.jpg')}}{% endif %}" class="d-block w-100" alt="No Banner">
+                      <div class="carousel-caption d-none d-md-block">
+                        <h1>{% if x['attributes']['titles']['en_jp'] == "" %}{{ x['attributes']['titles']['jp_jp'] }}{% else %}{{ x['attributes']['titles']['en_jp'] }}{% endif %}</h1>
+                      </div>
+                     </a>
+                    </div>
+                    {% endfor %}
+      
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselCombat"  data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselCombat"  data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+            
+              <h1 style="text-align: center;">Demon</h1>
+
+              <div id="carouselDemon" class="carousel slide anime-title" data-interval="false">
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselFantasy" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      
+                    {% for x in demon['data'] %}
+                    <button type="button" data-bs-target="#carouselFantasy" data-bs-slide-to="{{ loop.index }}" aria-label="Slide {{ loop.index + 1 }}"></button>
+                    {% endfor %}
+      
+                  </div>
+                  {% for x in demon['data'] %}
+                  <div class="carousel-{% if loop.index == 1 %}inner{% else %}item{% endif %}">
+                      {% if loop.index == 1 %}<div class="carousel-item active">{% endif %}
+                          <a href="{{url_for('anime',anime=x['id'])}}"><img src="{% if x['attributes']['coverImage']['small'] != null %}{{x['attributes']['coverImage']['small']}}{% else %}{{url_for('static', filename='img/nobanner.jpg')}}{% endif %}" class="d-block w-100" alt="No Banner">
+                      <div class="carousel-caption d-none d-md-block">
+                        <h1>{% if x['attributes']['titles']['en_jp'] == "" %}{{ x['attributes']['titles']['jp_jp'] }}{% else %}{{ x['attributes']['titles']['en_jp'] }}{% endif %}</h1>
+                      </div>
+                     </a>
+                    </div>
+                    {% endfor %}
+      
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselDemon"  data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselDemon"  data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+
+
+        <h1 style="text-align: center;">ROMANCE</h1>
+
+        <div id="carouselRomance" class="carousel slide anime-title" data-interval="false">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselRomance" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+              {% for x in romance['data'] %}
+              <button type="button" data-bs-target="#carouselRomance" data-bs-slide-to="{{ loop.index }}" aria-label="Slide {{ loop.index + 1 }}"></button>
+              {% endfor %}
+
+            </div>
+            {% for x in romance['data'] %}
+            <div class="carousel-{% if loop.index == 1 %}inner{% else %}item{% endif %}">
+                {% if loop.index == 1 %}<div class="carousel-item active">{% endif %}
+                    <a href="{{url_for('anime',anime=x['id'])}}"><img src="{% if x['attributes']['coverImage']['small'] != null %}{{x['attributes']['coverImage']['small']}}{% else %}{{url_for('static', filename='img/nobanner.jpg')}}{% endif %}" class="d-block w-100" alt="No Banner">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>{% if x['attributes']['titles']['en_jp'] == "" %}{{ x['attributes']['titles']['jp_jp'] }}{% else %}{{ x['attributes']['titles']['en_jp'] }}{% endif %}</h1>
+                </div>
+               </a>
+              </div>
+              {% endfor %}
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselRomance"  data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselRomance"  data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+          <h1 style="text-align: center;">HIGH SCHOOL</h1>
+
+          <div id="carouselHighSchool" class="carousel slide anime-title" data-interval="false">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselHighSchool" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+  
+                {% for x in highschool['data'] %}
+                <button type="button" data-bs-target="#carouselHighSchool" data-bs-slide-to="{{ loop.index }}" aria-label="Slide {{ loop.index + 1 }}"></button>
+                {% endfor %}
+  
+              </div>
+              {% for x in highschool['data'] %}
+              <div class="carousel-{% if loop.index == 1 %}inner{% else %}item{% endif %}">
+                  {% if loop.index == 1 %}<div class="carousel-item active">{% endif %}
+                    <a href="{{url_for('anime',anime=x['id'])}}"><img src="{% if x['attributes']['coverImage']['small'] != null %}{{x['attributes']['coverImage']['small']}}{% else %}{{url_for('static', filename='img/nobanner.jpg')}}{% endif %}" class="d-block w-100" alt="No Banner">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h1>{% if x['attributes']['titles']['en_jp'] == "" %}{{ x['attributes']['titles']['jp_jp'] }}{% else %}{{ x['attributes']['titles']['en_jp'] }}{% endif %}</h1>
+                  </div>
+                 </a>
+                </div>
+                {% endfor %}
+  
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselHighSchool"  data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselHighSchool"  data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+
+        <h1 style="text-align: center;">COOKING</h1>
+
+        <div id="carouselCooking" class="carousel slide anime-title" data-interval="false">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselCooking" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+              {% for x in cooking['data'] %}
+              <button type="button" data-bs-target="#carouselCooking" data-bs-slide-to="{{ loop.index }}" aria-label="Slide {{ loop.index + 1 }}"></button>
+              {% endfor %}
+
+            </div>
+            {% for x in cooking['data'] %}
+            <div class="carousel-{% if loop.index == 1 %}inner{% else %}item{% endif %}">
+                {% if loop.index == 1 %}<div class="carousel-item active">{% endif %}
+                    <a href="{{url_for('anime',anime=x['id'])}}"><img src="{% if x['attributes']['coverImage']['small'] != null %}{{x['attributes']['coverImage']['small']}}{% else %}{{url_for('static', filename='img/nobanner.jpg')}}{% endif %}" class="d-block w-100" alt="No Banner">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>{% if x['attributes']['titles']['en_jp'] == "" %}{{ x['attributes']['titles']['jp_jp'] }}{% else %}{{ x['attributes']['titles']['en_jp'] }}{% endif %}</h1>
+                </div>
+               </a>
+              </div>
+              {% endfor %}
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselCooking"  data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselCooking"  data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+
+
+<style>
+.anime-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: xx-large;
+  text-shadow: 0 0 3px #000000, 0 0 5px #000000;
+  font-weight: bold;
+}
+.carousel {
+    margin-bottom: 10px;
+}
+.trending {
+    border-radius: 0%;
+    margin-bottom: 7px;
+    background-color: transparent;
+    color: white;
+    border-color: transparent;
+}
+h1 {
+    color: white;
+}
+.carousel-control-next-icon-bg {
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
+    color: white;
+}
+.carousel-control-prev-icon-bg {
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
+    color: white;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <div class="col-4">
+        <h1 style="text-align: center;">Trending</h1>
+        <center>
+        {% for x in trend['data'] %}
+        <div class="card trending" style="width: 18rem;">
+            <img class="card-img-top" src="{% if x['attributes']['coverImage']['small'] != null %}{{x['attributes']['coverImage']['small']}}{% else %}{{url_for('static', filename='img/nobanner.jpg')}}{% endif %}" alt="No banner">
+            <div class="card-body">
+              <h5 style="font-size: medium;" class="card-title">{{x['attributes']['titles']['en_jp']}}</h5>
+              <p class="card-text" style="text-align: left;">
+                {{ x['attributes']['averageRating'] }}% Positive <br>
+                {{ x['attributes']['episodeCount'] }} Episodes</p>
+              <a href="{{url_for('anime',anime=x['id'])}}" class="btn btn-primary">View</a>
+            </div>
+          </div>
+          {% endfor %}
+        </center>
+    </div>
+  </div>
+
+{% endblock %}

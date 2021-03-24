@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Category{% endblock %}
+
+{% block body %} 
+
+<center style="margin-top: -25px;">
+    {% set int_page = page|int %}
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="{{url_for('browse',page=0)}}" aria-label="Next" style="background-color: transparent; color: white; border-color: transparent;">
+                  <span aria-hidden="true">First</span>
+                </a>
+              </li>
+          <li class="page-item">
+            <a class="page-link" href="{% if int_page > 10 %}{{url_for('browse',page=int_page-10)}}{% else %}{{url_for('browse',page=0)}}{% endif %}" aria-label="Previous" style="background-color: transparent; color: white; border-color: transparent;">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item">&nbsp;</li>
+          <li class="page-item">&nbsp;</li>
+          <li class="page-item">&nbsp;</li>
+          <li class="page-item">&nbsp;</li>
+          <li class="page-item">
+            <a class="page-link" href="{{url_for('browse',page=int_page+10)}}" aria-label="Next" style="background-color: transparent; color: white; border-color: transparent;">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="{{url_for('browse',page=anime['meta']['count']-10)}}" aria-label="Next" style="background-color: transparent; color: white; border-color: transparent;">
+              <span aria-hidden="true">Last</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+  </center>
+
+{% for x in anime['data'] %}
+<div class="poster">
+<a id="hover" href="{{url_for('anime',anime=x['id'])}}">
+<img src="{{x['attributes']['posterImage']['small']}}" alt="" style="margin-bottom: 5px;">
+<div class="centered">{{x['attributes']['titles']['en_jp']}}</div>
+</div>
+{% endfor %}
+
+<style>
+.poster {
+    float: right;
+    position: relative;
+    text-align: center;
+}
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.poster a:hover {
+    color: white;
+    font-size: x-large;
+    font-weight: bolder;
+    text-shadow: 0 0 5px #000000, 0 0 5px #000000;
+    font-family: 'Roboto', sans-serif;
+}
+a {
+    color: transparent;
+}
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block body %} 
+
+<div class="container">
+    <style>
+.centered {
+  position: absolute;
+  font-family: 'Roboto', sans-serif;
+  font-size: xx-large;
+  text-shadow: 0 0 3px #000000, 0 0 5px #000000;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.img-div {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.content {
+    color: white;
+}
+    </style>
+    <div class="img-div">
+        <img src="{% if anime['attributes']['coverImage']['small'] != null %}{{anime['attributes']['coverImage']['small']}}{% else %}{{url_for('static', filename='img/nobanner.jpg')}}{% endif %}" class="img-fluid" alt="...">
+        <div class="centered">
+            {{anime['attributes']['titles']['en_jp']}} <br>
+            {% if anime['attributes']['titles']['en_jp'].lower() not in anime['attributes']['titles']['ja_jp'].lower() %}
+            {{anime['attributes']['titles']['ja_jp']}}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="content">
+        <h2 style="text-align: center;">Description</h1>
+        <hr class="dropdown-divider">
+        <p>{{anime['attributes']['description']}}</p>
+        <h2 style="text-align: center;">Genres</h1>
+        <hr class="dropdown-divider">
+        <p><center>{% for x in genere %}{{x['attributes']['title']}}{% if loop.index != genere|length %},{% endif %} {% endfor %}</center></p>
+        <h2 style="text-align: center;">Episodes</h1>
+        <hr class="dropdown-divider">
+        <p>Total Episodes: {{anime['attributes']['episodeCount']}}</p>
+        <p>Average Length: {{anime['attributes']['episodeLength']}}</p>
+        <p>Total Length: {%set time = anime['attributes']['totalLength']|string%}{% if time[:1] == '-' %}{{time[1:]}}{% else %}{{time}}{% endif %}</p>
+        <p>Age Rating: {{anime['attributes']['ageRating']}} <i style="font-size: small;">{{anime['attributes']['ageRatingGuide']}}</i></p>
+
+{% endblock %}

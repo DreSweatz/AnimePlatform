@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}{{search}}{% endblock %}
+
+{% block body %}
+
+{% if anime == None %}
+
+{% else %}
+
+<div class="row">
+    <div class="col-4">
+      <div class="list-group" id="list-tab" role="tablist">
+        {% for x in anime['data'] %} <a class="list-group-item list-group-item-action" id="{{x['id']}}" data-bs-toggle="list" href="#l-{{x['id']}}-list" role="tab" aria-controls="{{x['id']}}-list">{{x['attributes']['canonicalTitle']}}</a> {% endfor %}
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="tab-content" id="nav-tabContent">
+
+
+
+
+        {% for x in anime['data'] %} 
+        <div class="tab-pane fade" id="l-{{x['id']}}-list" role="tabpanel" aria-labelledby="{{x['id']}}-list">
+
+            <center>
+            <div class="card" style="width: 90%;">
+                <center></center>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{x['attributes']['slug']}}modal" style="background-color: transparent;border-color: transparent;"><img src="{% if x['attributes']['coverImage']['small'] != null %}{{x['attributes']['coverImage']['small']}}{% else %}{{url_for('static', filename='img/nobanner.jpg')}}{% endif %}" class="card-img-top" alt="{{url_for('static', filename='img/nobanner.jpg')}}" style="height: 200px; width: 100%;"></button>
+        
+                <a style="text-decoration: none; color: rgb(51, 51, 51);" href="{{url_for('anime',anime=x['id'])}}">
+                <div class="card-body">
+                  <h5 class="card-title">{{x['attributes']['titles']['en_jp']}} | <span style="font-style: italic; font-size: small;">{{x['attributes']['titles']['ja_jp']}}</span> <span class="badge bg-secondary">{{x['attributes']['status']}}</span> <span class="badge bg-secondary">{{x['attributes']['showType']}}</span></h5>
+                  {% if x['attributes']['abbreviatedTitles'] != [] %}<h5 class="card-title" style="font-size: small;">Aka:{% for w in x['attributes']['abbreviatedTitles'] %} {{w}}, {% endfor %}</h5> {% endif %}
+                  <p class="card-text">{{x['attributes']['synopsis']}}</p>
+                </div>
+                <ul class="list-group list-group-flush" style="text-align: left;">
+                  <li class="list-group-item">Age Rating : {{x['attributes']['ageRating']}} | {{x['attributes']['ageRatingGuide']}}</li>
+                  <li class="list-group-item">{% if x['attributes']['averageRating'] != None %} Rating : {{x['attributes']['averageRating']}}% {% else %} No Rating {% endif %}</li>
+                  <li class="list-group-item">Episodes : {{x['attributes']['episodeCount']}}</li>
+                  <li class="list-group-item">Average Length : {{x['attributes']['episodeLength']}} Minutes  <span style="font-style: italic;font-size: smaller;">(per episode)</span> </li>
+                  <li class="list-group-item">Total Length : {%set time = x['attributes']['totalLength']|string%}{% if time[:1] == '-' %}{{time[1:]}}{% else %}{{time}}{% endif %} Minutes</li>
+                  <li class="list-group-item">Rank : {{x['attributes']['ratingRank']}}</li>
+                </ul>
+              </div>
+            </a>
+
+              {% if x['attributes']['coverImage']['small'] != null %}
+              <div class="modal fade" id="{{x['attributes']['slug']}}modal" tabindex="-1" aria-labelledby="{{x['attributes']['slug']}}ModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">{{x['attributes']['canonicalTitle']}}</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/{{x['attributes']['youtubeVideoId']}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </center>
+
+        </div>{% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <center>
+    {% set int_page = page|int %}
+    <nav aria-label="Page navigation example" style="margin-top: 5px;">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="{{url_for('categorySearch',ids=id,page=0)}}" aria-label="Next" style="background-color: transparent; color: white; border-color: transparent;">
+                  <span aria-hidden="true">First</span>
+                </a>
+              </li>
+          <li class="page-item">
+            <a class="page-link" href="{% if int_page > 10 %}{{url_for('categorySearch',ids=id,page=int_page-10)}}{% else %}{{url_for('categorySearch',ids=id,page=0)}}{% endif %}" aria-label="Previous" style="background-color: transparent; color: white; border-color: transparent;">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item">&nbsp;</li>
+          <li class="page-item">&nbsp;</li>
+          <li class="page-item">&nbsp;</li>
+          <li class="page-item">&nbsp;</li>
+          <li class="page-item">
+            <a class="page-link" href="{{url_for('categorySearch',ids=id,page=int_page+10)}}" aria-label="Next" style="background-color: transparent; color: white; border-color: transparent;">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="{{url_for('categorySearch',ids=id,page=int_page-10)}}" aria-label="Next" style="background-color: transparent; color: white; border-color: transparent;">
+              <span aria-hidden="true">Last</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+  </center>
+
+<style>
+.card {
+  background-color: transparent;
+  color: white;
+}
+.card-body {
+  background-color: transparent;
+  color: white;
+}
+.list-group-item {
+  background-color: transparent;
+  color: white;
+}
+.list-group-item :hover {
+  background-color: #202225;
+}
+
+</style>
+
+{% endif %}
+
+{% endblock %}
